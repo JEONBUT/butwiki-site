@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>붇위키 - 집 구하기 Q&A</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>붇위키 질문 시스템 (Q1~Q20)</title>
   <style>
     body { font-family: sans-serif; padding: 20px; max-width: 700px; margin: auto; }
     .question { font-weight: bold; margin: 20px 0 10px; }
-    .option { display: block; margin: 8px 0; padding: 8px 12px; background: #f2f2f2; border: none; cursor: pointer; width: 100%; text-align: left; }
+    .option { display: block; margin: 8px 0; padding: 10px 14px; background: #f0f0f0; border: none; border-radius: 5px; cursor: pointer; text-align: left; }
     .result { margin-top: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 10px; background: #f9f9f9; line-height: 1.6; }
   </style>
 </head>
 <body>
-  <h1>붇위키 - 집 구하기 질문 시스템</h1>
+  <h1>붇위키 - 집 구하기 Q&A</h1>
   <div id="question-box"></div>
   <div id="options-box"></div>
   <div class="result" id="result-box"></div>
 
   <script>
     const questions = [
-      { q: "Q1. 현재 주택 보유 상태는 어떻게 되나요?", a: ["무주택", "1주택", "2주택 이상"] },
-      { q: "Q2. 과거 분양권, 입주권, 상속 이력이 있으신가요?", a: ["없음", "있음"] },
+      { q: "Q1. 주택 보유 상태는?", a: ["무주택", "1주택", "2주택 이상"] },
+      { q: "Q2. 분양권, 상속 이력은?", a: ["없음", "있음"] },
       { q: "Q3. 거래 형태는?", a: ["매매", "전세", "월세", "갭투자"] },
-      { q: "Q4. 주택 구입 목적은?", a: ["실거주", "투자", "겸용"] },
-      { q: "Q5. 거주 계획은?", a: ["장기 거주 목적", "임시 거주 목적"] },
-      { q: "Q6. 자기자본 출처는?", a: ["본인 소득", "부모 증여", "부모 차용(차용증 없음)"] },
-      { q: "Q7. 대출 계획은?", a: ["정책자금 예정", "시중은행", "미정"] },
-      { q: "Q8. 자녀 유무", a: ["없음", "있음"] },
-      { q: "Q9. 직장 위치 또는 주요 생활권은?", a: ["서울 도심", "수도권", "기타"] },
-      { q: "Q10. 자차 유무?", a: ["있음", "없음"] },
-      { q: "Q20. 전세보증보험 가입 여부", a: ["가입 예정", "미가입"] }
+      { q: "Q4. 구입 목적은?", a: ["실거주", "투자", "겸용"] },
+      { q: "Q5. 거주 계획은?", a: ["장기 거주", "임시 거주"] },
+      { q: "Q6. 자금 출처는?", a: ["본인 소득", "부모 증여", "부모 차용(차용증 없음)"] },
+      { q: "Q7. 대출 계획은?", a: ["정책자금 예정", "시중은행", "비대면 은행", "없음"] },
+      { q: "Q8. 혼인 상태는?", a: ["미혼", "결혼 예정", "혼인신고 완료"] },
+      { q: "Q9. 직장/생활 중심지는?", a: ["서울", "수도권", "지방"] },
+      { q: "Q10. 자차 유무는?", a: ["있음", "없음"] },
+      { q: "Q11. 자녀 유무?", a: ["없음", "미취학", "초등 이상"] },
+      { q: "Q12. 반려동물 동반?", a: ["있음", "없음"] },
+      { q: "Q13. 주택 유형?", a: ["아파트", "빌라/다세대", "오피스텔", "도생", "재개발/재건축"] },
+      { q: "Q14. 지역 조건?", a: ["직주근접", "학군", "가까운 친가/처가", "교통"] },
+      { q: "Q15. 수도권/비수도권?", a: ["수도권", "비수도권"] },
+      { q: "Q16. 차량 활용도는?", a: ["출퇴근에 사용", "차 있음, 출퇴근은 대중교통", "차 없음"] },
+      { q: "Q17. 계약 방식 예상?", a: ["전세", "월세", "매매", "갭투자"] },
+      { q: "Q18. 입주 시점?", a: ["즉시 입주", "1개월 이내", "협의 가능"] },
+      { q: "Q19. 특약 설정 필요?", a: ["필요함", "기본 조건이면 됨", "잘 모르겠음"] },
+      { q: "Q20. 전세보증보험 상태?", a: ["가입 완료", "가입 예정", "미가입"] }
     ];
 
     const answers = [];
@@ -47,25 +56,26 @@
 
         if (answers[0] === "무주택") report += "🎯 당신은 무주택자로서";
         if (answers[2] === "전세") report += " 전세를 희망하며,";
-        if (answers[4] === "장기 거주 목적") report += " 실거주 목적의 장기 거주를 계획하고 있습니다.<br>";
+        if (answers[4] === "장기 거주") report += " 실거주 목적의 장기 거주를 계획하고 있습니다.<br>";
         if (answers[5] === "부모 차용(차용증 없음)") report += "💸 자금은 부모님 차용(차용증 없음)이며,";
         if (answers[6] === "정책자금 예정") report += " 대출은 정책자금 활용 예정입니다.<br>";
         if (answers[9] === "수도권") report += "📍 희망 지역은 수도권 내 직주근접형이며,";
         if (answers[10] === "있음") report += " 자차를 통해 출퇴근하십니다.<br>";
-        if (answers[11] === "미가입") report += "🛑 보증보험은 아직 가입 전이며,";
+        if (answers[19] === "미가입") report += "🛑 보증보험은 아직 가입 전이며,";
         if (answers[2] === "전세") report += " 갭투자보다는 전세 계약이 적절해 보입니다.<br>";
 
-        report += "✅ 다음과 같은 항목을 고려해보세요:<ul>";
+        report += "✅ 다음 항목 고려:
+<ul>";
         if (answers[6] === "정책자금 예정") report += "<li>디딤돌 또는 버팀목 전세자금대출 사전 승인</li>";
         report += "<li>전입신고 + 확정일자 필수 확보</li>";
-        if (answers[10] === "있음") report += "<li>자차 이동 중심의 입지 분석 (주차 가능 여부 확인)</li>";
+        if (answers[10] === "있음") report += "<li>자차 중심 입지 분석 (주차 가능 여부 확인)</li>";
         report += "</ul>";
 
         rBox.innerHTML = '<div class="result">' + report + '</div>';
         return;
       }
 
-      qBox.innerHTML = questions[current].q;
+      qBox.innerHTML = "<div class='question'>" + questions[current].q + "</div>";
       oBox.innerHTML = "";
       rBox.innerHTML = "";
 
