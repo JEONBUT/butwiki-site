@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>붇위키 질문 시스템</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    .question { margin-bottom: 20px; }
+    .option { display: block; margin: 8px 0; cursor: pointer; }
+    .result { margin-top: 30px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>붇위키 - 집 구하기 질문 시스템</h1>
+  <div class="question" id="question-box"></div>
+  <div class="options" id="options-box"></div>
+  <div class="result" id="result-box"></div>
+
+  <script>
+    const questions = [
+      { q: "Q1. 현재 주택 보유 상태는 어떻게 되나요?", a: ["무주택", "1주택", "2주택 이상"] },
+      { q: "Q2. 과거 분양권, 입주권, 상속 이력이 있으신가요?", a: ["없음", "있음"] },
+      { q: "Q3. 이번에 찾으시는 주거 형태는 어떤 거래인가요?", a: ["매매", "전세", "월세", "갭투자"] },
+      { q: "Q4. 해당 집은 어떤 목적으로 구하시나요?", a: ["실거주", "투자", "실거주 + 투자 겸용"] },
+      { q: "Q5. 이번 계약은 장기 거주용인가요, 임시 거주인가요?", a: ["장기 거주 목적", "입주 전 임시 거주"] },
+    ];
+    const answers = [];
+    let current = 0;
+
+    function showQuestion() {
+      const qBox = document.getElementById("question-box");
+      const oBox = document.getElementById("options-box");
+      const rBox = document.getElementById("result-box");
+      qBox.innerHTML = questions[current].q;
+      oBox.innerHTML = "";
+      rBox.innerHTML = "";
+
+      questions[current].a.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = opt;
+        btn.onclick = () => {
+          answers.push(opt);
+          current++;
+          if (current < questions.length) {
+            showQuestion();
+          } else {
+            qBox.innerHTML = "🎯 리포트 결과";
+            oBox.innerHTML = "";
+            rBox.innerHTML = `당신은 <b>${answers[0]}</b>이며, <b>${answers[2]}</b> 거래를 계획 중입니다.<br>
+              목적은 <b>${answers[3]}</b>이며, 전세/보증금 리스크 여부는 추후 질문을 통해 안내드립니다.`;
+          }
+        };
+        oBox.appendChild(btn);
+      });
+    }
+    showQuestion();
+  </script>
+</body>
+</html>
