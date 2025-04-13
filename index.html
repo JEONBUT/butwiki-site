@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>붇위키 질문 시스템 (Q1~Q20)</title>
   <style>
     body { font-family: sans-serif; padding: 20px; max-width: 700px; margin: auto; }
@@ -52,6 +52,7 @@
       if (current >= questions.length) {
         qBox.innerHTML = "<h2>🎯 맞춤형 리포트</h2>";
         oBox.innerHTML = "";
+
         let report = "";
 
         if (answers[0] === "무주택") report += "🎯 당신은 무주택자로서";
@@ -64,8 +65,7 @@
         if (answers[19] === "미가입") report += "🛑 보증보험은 아직 가입 전이며,";
         if (answers[2] === "전세") report += " 갭투자보다는 전세 계약이 적절해 보입니다.<br>";
 
-        report += "✅ 다음 항목 고려:
-<ul>";
+        report += "✅ 다음 항목 고려:<ul>";
         if (answers[6] === "정책자금 예정") report += "<li>디딤돌 또는 버팀목 전세자금대출 사전 승인</li>";
         report += "<li>전입신고 + 확정일자 필수 확보</li>";
         if (answers[10] === "있음") report += "<li>자차 중심 입지 분석 (주차 가능 여부 확인)</li>";
